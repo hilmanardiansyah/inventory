@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        // 'role',
     ];
 
     /**
@@ -43,8 +46,10 @@ class User extends Authenticatable
     ];
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_user');
+        return $this->morphToMany(Role::class, 'model', 'model_has_roles', 'model_id', 'role_id');
     }
+
+
     public function transactions()
     {
         return $this->hasMany(Transaction::class);
