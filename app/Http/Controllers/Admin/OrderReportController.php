@@ -10,19 +10,24 @@ use Illuminate\Http\Request;
 
 class OrderReportController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil data dari tabel orders, order_details, dan transactions
-        $orders = Order::with(['orderDetails', 'transactions'])
-                       ->select('orders.*')
-                       ->get();
+        // Statistik Pesanan
+        $totalOrders = Order::count();
+        $completedOrders = Order::where('status', 'completed')->count();
+        $pendingOrders = Order::where('status', 'pending')->count();
+        $totalRevenue = Order::sum('total_amount');
 
-        // Jika Anda ingin menghitung total transaksi atau data lain yang relevan
-        $totalAmount = $orders->sum(function($order) {
-            return $order->transactions->sum('amount');
-        });
+        // Filter Pesanan
+        $orders = Order::with('customer')->when($request->status, function ($query) use ($request) {
+            $query->where('status', $request->status);
+        })->when($request->start_date, function ($query) use ($request) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        })->when($request->end_date, function ($query) use ($request) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        })->get();
 
-        // Kirim data ke view
-        return view('admin.reports.orders', compact('orders', 'totalAmount'));
+        return view('admin.orders.reports', compact('totalOrders', 'completedOrders', 'pendingOrders', 'totalRevenue', 'orders'));
     }
+
 }

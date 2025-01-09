@@ -28,7 +28,10 @@ class LoginController extends Controller
                 return redirect()->intended('/admin/dashboard');
             } elseif (Auth::user()->hasRole('staff')) {
                 return redirect()->intended('/staff/dashboard');
+            } elseif (Auth::user()->hasRole('customer')) { // Tambahkan pengecekan untuk customer
+                return redirect()->intended('/customer/dashboard');
             }
+
 
             // Default redirect
             return redirect('/');

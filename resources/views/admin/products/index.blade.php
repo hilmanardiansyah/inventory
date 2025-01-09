@@ -1,5 +1,5 @@
 <x-app-layouts title="Tabel Produk">
-    <x-search action="{{ route('products.index') }}" />
+    <x-search action="{{ route('admin.products.index') }}" />
     <div class="card">
         <div class="card-header d-flex justify-content-between">
             <h4>Table Produk</h4>

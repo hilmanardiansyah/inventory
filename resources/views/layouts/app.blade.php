@@ -22,7 +22,13 @@
 <body>
   @auth
   <x-navbar />
-  <x-sidebar />
+    <!-- Menampilkan Sidebar berdasarkan peran pengguna -->
+    @if(auth()->user()->hasRole('admin'))
+    <x-admin.sidebar />
+    @elseif(auth()->user()->hasRole('staff'))
+    <x-staff.sidebar />
+    @endif
+    
   @endauth
   <div class="main-content">
     <section class="section">

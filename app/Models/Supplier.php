@@ -18,4 +18,8 @@ class Supplier extends Model
     {
         return $this->hasMany(Product::class);
     }
+    public function barangMasuks()
+    {
+        return $this->hasMany(BarangMasuk::class); // Relasi satu supplier bisa punya banyak barang masuk
+    }
 }
