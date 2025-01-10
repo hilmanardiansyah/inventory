@@ -19,6 +19,15 @@
                     <label for="password" class="form-label">Password (Kosongkan jika tidak ingin mengubah)</label>
                     <input type="password" name="password" id="password" class="form-control">
                 </div>
+                <div class="mb-3">
+                    <label for="phone">Phone</label>
+                    <input type="phone" name="phone" id="phone" class="form-control" value="{{ old('phone', $user->phone) }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="address">Address</label>
+                    <input type="address" name="address" id="address" class="form-control" value="{{ old('address', $user->address) }}" required>
+                </div>
                 <div class="form-group">
                     <label for="role">Role</label>
                     <select name="role" id="role" class="form-control" required>

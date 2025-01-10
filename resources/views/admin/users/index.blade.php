@@ -16,6 +16,8 @@
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>No Telepon</th>
+                        <th>Alamat</th>
                         <th>Created At</th>
                         <th>Actions</th>
                     </tr>
@@ -26,6 +28,8 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->phone }}</td>
+                            <td>{{ $user->address }}</td>
                             <td>{{ $user->role}}</td>
                             <td>{{ $user->created_at->format('d-m-Y') }}</td>
                             <td>

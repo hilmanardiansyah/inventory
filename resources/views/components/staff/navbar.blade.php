@@ -3,7 +3,7 @@
         <div class="sidebar-brand">
             <a href="index.html">
                 <img alt="image" src="/assets/images/logo/logo-inventory.png" style="width: 60px; height: 60px" class="header-logo" />
-                <span class="logo-name">InventoryP </span>
+                <span class="logo-name">Inventory App</span>
             </a>
         </div>
         <ul class="sidebar-menu">

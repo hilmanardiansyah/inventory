@@ -9,6 +9,12 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('customer.dashboard');
+        $user = auth()->user();
+        $totalOrders = $user->orders()->count();
+        $ordersInProgress = $user->orders()->where('status', 'in-progress')->count();
+        $completedOrders = $user->orders()->where('status', 'completed')->count();
+        $latestOrders = $user->orders()->latest()->limit(5)->get();
+
+        return view('customer.dashboard', compact('totalOrders', 'ordersInProgress', 'completedOrders', 'latestOrders'));
     }
 }

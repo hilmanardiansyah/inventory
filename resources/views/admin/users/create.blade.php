@@ -19,6 +19,14 @@
                     <input type="password" name="password" id="password" class="form-control" required>
                 </div>
                 <div class="mb-3">
+                    <label for="phone" class="form-label">No Telepon</label>
+                    <input type="phone" name="phone" id="phone" class="form-control" value="{{ old('phone') }}" pattern="\d+" title="Harus berupa angka" required>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Alamat</label>
+                    <input type="address" name="address" id="address" class="form-control" value="{{ old('address') }}" required>
+                </div>
+                <div class="mb-3">
                     <label for="role" class="form-label">Role:</label>
                     <select name="role" id="role" required>
                         <option value="admin">Admin</option>

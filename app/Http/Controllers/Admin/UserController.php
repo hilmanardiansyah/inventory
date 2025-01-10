@@ -29,17 +29,21 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
             'role' => 'required|in:admin,staff,customer',  // Validasi role
+            'phone' => 'nullable|string|max:15', // Validasi untuk phone
+            'address' => 'nullable|string|max:255', // Validasi untuk address
         ]);
 
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
+            'phone' => $validated['phone'],
+            'address' => $validated['address'],
         ]);
-    
+
         // Menetapkan role ke user yang baru dibuat
         $user->assignRole($validated['role']);
-    
+
 
         return redirect()->route('admin.users.index')->with('success', 'User created successfully!');
     }
@@ -58,6 +62,8 @@ class UserController extends Controller
         'email' => 'required|email|unique:users,email,' . $user->id,
         'password' => 'nullable|string|min:8', // Password opsional pada update
         'role' => 'required|in:admin,staff,customer',  // Validasi role
+        'phone' => 'nullable|string|max:15', // Validasi untuk phone
+        'address' => 'nullable|string|max:255', // Validasi untuk address
     ]);
 
     // Update data user
@@ -65,6 +71,8 @@ class UserController extends Controller
         'name' => $validated['name'],
         'email' => $validated['email'],
         'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
+        'phone' => $validated['phone'],
+        'address' => $validated['address'],
     ]);
 
     // Menetapkan atau mengupdate role menggunakan spatie
