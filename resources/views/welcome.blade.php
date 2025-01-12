@@ -21,16 +21,6 @@
         </style>
     </head>
     <body class="antialiased">
-        <li class="dropdown">
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                <i data-feather="log-out"></i><span>Logout</span>
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </li>
-        
         <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

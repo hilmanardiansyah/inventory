@@ -34,7 +34,8 @@ class LoginController extends Controller
 
 
             // Default redirect
-            return redirect('/');
+            session()->flash('error', 'Email atau password salah.');
+            return back();
         }
 
         return back()->withErrors([
@@ -49,6 +50,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/');
+        return redirect('login');
     }
 }

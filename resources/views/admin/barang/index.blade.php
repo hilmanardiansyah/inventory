@@ -24,7 +24,7 @@
                     @foreach($barangs as $barang)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $barang->nama }}</td>
+                            <td>{{ $barang->nama_barang }}</td>
                             <td>{{ $barang->category->name ?? 'Tidak Ada Kategori' }}</td> <!-- Nama kategori -->
                             <td>{{ $barang->stok }}</td>
                             <td>{{ $barang->harga }}</td>

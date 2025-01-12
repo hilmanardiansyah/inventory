@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Admin;
 
@@ -18,7 +18,7 @@ class BarangController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.barang.create');
+        return view('admin.barang.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -39,7 +39,7 @@ class BarangController extends Controller
         return redirect()->route('admin.barang.index');
     }
 
-    public function edit($id)
+    public function edit(Barang $barang)
     {
         $categories = Category::all();
         return view('admin.barang.edit', compact('barang', 'categories'));

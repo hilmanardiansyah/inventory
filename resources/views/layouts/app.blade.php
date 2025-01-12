@@ -16,21 +16,28 @@
   <link rel="stylesheet" href="{{ asset('assets/css/components.css') }}">
   <!-- Custom style CSS -->
   <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+  <link rel="icon" href="{{ asset('assets/images/logo/logo-inventory.png') }}" type="image/png">
+
   @stack('styles')
 </head>
 
 <body>
   @auth
- 
+
     <!-- Menampilkan Sidebar berdasarkan peran pengguna -->
     @if(auth()->user()->hasRole('admin'))
     <x-admin.sidebar />
-    <x-admin.navbar />
     @elseif(auth()->user()->hasRole('staff'))
     <x-staff.sidebar />
-    <x-staff.navbar />
     @elseif (auth()->user()->hasRole('customer'))
     <x-customer.sidebar />
+    @endif
+    <!-- Menampilkan Navbar berdasarkan peran pengguna -->
+    @if(auth()->user()->hasRole('admin'))
+    <x-admin.navbar />
+    @elseif(auth()->user()->hasRole('staff'))
+    <x-staff.navbar />
+    @elseif (auth()->user()->hasRole('customer'))
     <x-customer.navbar />
     @endif
 

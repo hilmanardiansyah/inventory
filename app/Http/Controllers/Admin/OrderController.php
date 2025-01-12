@@ -35,11 +35,12 @@ class OrderController extends Controller
             'customer_id' => 'required|exists:customers,id',
             'status' => 'required|string',
             'total_amount' => 'required|numeric',
-            'items' => 'required|array', // Pastikan ada data items (produk yang dipesan)
-            'items.*.product_id' => 'required|exists:products,id', // Validasi setiap produk
-            'items.*.quantity' => 'required|numeric|min:1', // Validasi jumlah produk
-            'items.*.price' => 'required|numeric|min:1', // Validasi harga produk
+            'items' => 'required|array',
+            'items.*.product_id' => 'required|exists:products,id',
+            'items.*.quantity' => 'required|numeric|min:1|max:10000', // Atur batas yang wajar
+            'items.*.price' => 'required|numeric|min:1|max:1000000', // Atur harga maksimum
         ]);
+
 
         // Membuat order baru
         $order = Order::create([
@@ -67,7 +68,7 @@ class OrderController extends Controller
         // Mengambil semua customer untuk pilihan di form edit
         $customers = Customer::all();
         $products = Product::all();
-        
+
         return view('admin.orders.edit', compact('order', 'customers', 'products'));
     }
 
@@ -78,11 +79,12 @@ class OrderController extends Controller
         'customer_id' => 'required|exists:customers,id',
         'status' => 'required|string',
         'total_amount' => 'required|numeric',
-        'items' => 'required|array', // Pastikan ada data items (produk yang dipesan)
-        'items.*.product_id' => 'required|exists:products,id', // Validasi setiap produk
-        'items.*.quantity' => 'required|numeric|min:1', // Validasi jumlah produk
-        'items.*.price' => 'required|numeric|min:1', // Validasi harga produk
+        'items' => 'required|array',
+        'items.*.product_id' => 'required|exists:products,id',
+        'items.*.quantity' => 'required|numeric|min:1|max:10000', // Atur batas yang wajar
+        'items.*.price' => 'required|numeric|min:1|max:1000000', // Atur harga maksimum
     ]);
+
 
     // Update order yang sudah ada
     $order->update([
@@ -93,6 +95,22 @@ class OrderController extends Controller
 
     // Hapus order details yang lama
     $order->orderDetails()->delete();
+    foreach ($validated['items'] as $item) {
+        $subtotal = $item['quantity'] * $item['price'];
+
+        // Cek apakah subtotal melebihi batas yang wajar
+        if ($subtotal > 999999999) {
+            return redirect()->back()->withErrors('Subtotal is too large.');
+        }
+
+        $order->orderDetails()->create([
+            'product_id' => $item['product_id'],
+            'quantity' => $item['quantity'],
+            'price' => $item['price'],
+            'subtotal' => $subtotal,
+        ]);
+    }
+
 
     // Menambahkan order details berdasarkan data yang dikirimkan
     foreach ($validated['items'] as $item) {
@@ -128,22 +146,6 @@ class OrderController extends Controller
         // Kirim data ke view
         return view('admin.orders.show', compact('order'));
     }
-    public function export()
-    {
-        // Ambil semua data orders
-        $orders = Order::with('customer')->get();
 
-        // Format data untuk diekspor
-        $csvData = "ID,Customer Name,Status,Total Amount\n";
-        foreach ($orders as $order) {
-            $csvData .= "{$order->id},{$order->customer->name},{$order->status},{$order->total_amount}\n";
-        }
 
-        // Simpan ke file CSV
-        $fileName = "orders_export_" . date('Y-m-d_H-i-s') . ".csv";
-        return Response::make($csvData, 200, [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename=\"$fileName\"",
-        ]);
-    }
 }
