@@ -1,23 +1,55 @@
 <x-app-layouts title="Edit Barang Keluar">
-    <x-card>
-        <x-slot name="header">
+    <div class="card">
+        <div class="card-header">
             <h4>Edit Barang Keluar</h4>
-        </x-slot>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('admin.barangKeluar.update', $barangKeluar->id) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-        <x-form action="{{ route('admin.barangKeluar.update', $barangKeluar->id) }}" method="POST">
-            @csrf
-            @method('PUT')
-            <x-form.select label="Barang" name="barang_id">
-                @foreach($barangs as $barang)
-                    <option value="{{ $barang->id }}" {{ $barang->id == $barangKeluar->barang_id ? 'selected' : '' }}>
-                        {{ $barang->nama }}
-                    </option>
-                @endforeach
-            </x-form.select>
-            <x-form.input label="Jumlah Keluar" name="jumlah_keluar" value="{{ $barangKeluar->jumlah_keluar }}" type="number" />
-            <x-form.input label="Tanggal Keluar" name="tanggal_keluar" value="{{ $barangKeluar->tanggal_keluar }}" type="date" />
-            <x-form.textarea label="Keterangan" name="keterangan">{{ $barangKeluar->keterangan }}</x-form.textarea>
-            <x-form.submit>Update Barang Keluar</x-form.submit>
-        </x-form>
-    </x-card>
-</x-app-layout>
+                <div class="form-group">
+                    <label for="barang_id">Barang</label>
+                    <select class="form-control @error('barang_id') is-invalid @enderror" id="barang_id" name="barang_id" required>
+                        @foreach($barangs as $barang)
+                            <option value="{{ $barang->id }}" {{ $barang->id == $barangKeluar->barang_id ? 'selected' : '' }}>
+                                {{ $barang->nama_barang }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('barang_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="jumlah_keluar">Jumlah Keluar</label>
+                    <input type="number" class="form-control @error('jumlah_keluar') is-invalid @enderror"
+                        id="jumlah_keluar" name="jumlah_keluar" value="{{ old('jumlah_keluar', $barangKeluar->jumlah_keluar) }}" required>
+                    @error('jumlah_keluar')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="tanggal_keluar">Tanggal Keluar</label>
+                    <input type="date" class="form-control @error('tanggal_keluar') is-invalid @enderror"
+                        id="tanggal_keluar" name="tanggal_keluar" value="{{ old('tanggal_keluar', $barangKeluar->tanggal_keluar) }}" required>
+                    @error('tanggal_keluar')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="keterangan">Keterangan</label>
+                    <textarea class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" required>{{ old('keterangan', $barangKeluar->keterangan) }}</textarea>
+                    @error('keterangan')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary">Update Barang Keluar</button>
+            </form>
+        </div>
+    </div>
+</x-app-layouts>

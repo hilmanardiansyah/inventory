@@ -24,7 +24,7 @@
                     @foreach($barangKeluars as $barangKeluar)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $barangKeluar->barang->nama }}</td>
+                            <td>{{ $barangKeluar->barang->nama_barang }}</td>
                             <td>{{ $barangKeluar->jumlah_keluar }}</td>
                             <td>{{ $barangKeluar->tanggal_keluar }}</td>
                             <td>{{ $barangKeluar->keterangan }}</td>
