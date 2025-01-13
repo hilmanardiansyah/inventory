@@ -17,7 +17,7 @@
                                 <h6 class="mb-1">Panduan Penggunaan</h6>
                             </div>
                         </a>
-                        <a href="https://www.youtube.com/watch?v=37AFCKgYRZQ" target="_blank" class="list-group-item list-group-item-action">
+                        <a href="#" target="_blank" class="list-group-item list-group-item-action">
                             <div class="d-flex justify-content-between">
                                 <h6 class="mb-1"><img width="36" height="36" alt="YouTube"
                                         src="https://cdn3.iconfinder.com/data/icons/2018-social-media-logotypes/1000/2018_social_media_popular_app_logo_youtube-512.png">
@@ -25,7 +25,7 @@
                                 <h6 class="mb-1">YouTube</h6>
                             </div>
                         </a>
-                        <a href="https://github.com/fadlieFerdiyansah/web-elearning" target="_blank"
+                        <a href="https://github.com/hilmanardiansyah/inventory" target="_blank"
                             class="list-group-item list-group-item-action">
                             <div class="d-flex justify-content-between">
                                 <h6 class="mb-1"><img width="40" height="40" alt="GitHub"
