@@ -8,6 +8,7 @@
         </div>
         <div class="card-body">
             <x-alert />
+            <div class="table-responsive">
             <table class="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -37,6 +38,7 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
 </x-app-layouts>
