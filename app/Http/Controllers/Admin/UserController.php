@@ -28,9 +28,9 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:admin,staff,customer',  // Validasi role
-            'phone' => 'nullable|string|max:15', // Validasi untuk phone
-            'address' => 'nullable|string|max:255', // Validasi untuk address
+            'role' => 'required|in:admin,staff,customer',
+            'phone' => 'nullable|string|max:15',
+            'address' => 'nullable|string|max:255',
         ]);
 
         $user = User::create([
@@ -41,12 +41,12 @@ class UserController extends Controller
             'address' => $validated['address'],
         ]);
 
-        // Menetapkan role ke user yang baru dibuat
+        // Assign role yang dipilih
         $user->assignRole($validated['role']);
-
 
         return redirect()->route('admin.users.index')->with('success', 'User created successfully!');
     }
+
 
     // Menampilkan form untuk mengedit user
     public function edit(User $user)
@@ -60,10 +60,10 @@ class UserController extends Controller
     $validated = $request->validate([
         'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email,' . $user->id,
-        'password' => 'nullable|string|min:8', // Password opsional pada update
-        'role' => 'required|in:admin,staff,customer',  // Validasi role
-        'phone' => 'nullable|string|max:15', // Validasi untuk phone
-        'address' => 'nullable|string|max:255', // Validasi untuk address
+        'password' => 'nullable|string|min:8',
+        'role' => 'required|in:admin,staff,customer',
+        'phone' => 'nullable|string|max:15',
+        'address' => 'nullable|string|max:255',
     ]);
 
     // Update data user
@@ -75,11 +75,12 @@ class UserController extends Controller
         'address' => $validated['address'],
     ]);
 
-    // Menetapkan atau mengupdate role menggunakan spatie
-    $user->syncRoles($validated['role']);  // Pastikan menggunakan syncRoles untuk menetapkan role yang benar
+    // Update role menggunakan syncRoles
+    $user->syncRoles($validated['role']);
 
     return redirect()->route('admin.users.index')->with('success', 'User updated successfully!');
 }
+
 
 
     // Menghapus user

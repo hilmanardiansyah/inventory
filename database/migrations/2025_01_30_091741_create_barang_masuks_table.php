@@ -19,12 +19,13 @@ return new class extends Migration
             $table->unsignedBigInteger('supplier_id');
             $table->integer('jumlah_masuk');
             $table->date('tanggal_masuk');
+            $table->text('keterangan')->nullable(); // Tambahkan kolom
+
             $table->timestamps();
-        
+
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
         });
-        
     }
 
     /**

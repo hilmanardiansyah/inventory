@@ -30,10 +30,10 @@
                 </div>
                 <div class="form-group">
                     <label for="role">Role</label>
-                    <select name="role" id="role" class="form-control" required>
-                        <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                        <option value="staff" {{ $user->role == 'staff' ? 'selected' : '' }}>Staff</option>
-                        <option value="customer" {{ $user->role == 'customer' ? 'selected' : '' }}>Customer</option>
+                    <select name="role" class="form-control">
+                        <option value="admin" {{ $user->hasRole('admin') ? 'selected' : '' }}>Admin</option>
+                        <option value="staff" {{ $user->hasRole('staff') ? 'selected' : '' }}>Staff</option>
+                        <option value="customer" {{ $user->hasRole('customer') ? 'selected' : '' }}>Customer</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Perbarui</button>

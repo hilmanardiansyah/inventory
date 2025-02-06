@@ -20,6 +20,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('avatar')->nullable();
+            $table->string('phone')->nullable(); // Kolom untuk nomor telepon
+            $table->text('address')->nullable(); // Kolom untuk alamat
             $table->rememberToken();
             $table->timestamps();
         });

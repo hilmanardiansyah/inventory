@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +15,22 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call(RoleSeeder::class);
+        // Membuat roles terlebih dahulu
+        $adminRole = Role::firstOrCreate(['name' => 'admin']);
+        $staffRole = Role::firstOrCreate(['name' => 'staff']);
+        $customerRole = Role::firstOrCreate(['name' => 'customer']);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        // Membuat user dengan role admin
+        $adminUser = User::factory()->create();
+        $adminUser->assignRole('admin');
+
+        // Membuat user dengan role staff
+        $staffUser = User::factory()->create();
+        $staffUser->assignRole('staff');
+
+        // Membuat user dengan role customer
+        $customerUser = User::factory()->create();
+        $customerUser->assignRole('customer');
     }
 }

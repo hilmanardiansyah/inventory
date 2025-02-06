@@ -1,6 +1,9 @@
 <x-app-layouts title="Dashboard Inventory">
     <div class="row">
         <div class="col-12 col-md-5">
+            <div class="alert alert-success text-center">
+                <h5>Selamat datang, {{ auth()->user()->nama }}!</h5>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <h6 class="text-muted">Info Pengguna</h6>

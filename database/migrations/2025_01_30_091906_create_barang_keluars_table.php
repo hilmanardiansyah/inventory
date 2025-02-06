@@ -20,11 +20,10 @@ return new class extends Migration
             $table->date('tanggal_keluar'); // Tanggal barang keluar
             $table->string('keterangan')->nullable(); // Keterangan opsional
             $table->timestamps(); // Kolom created_at dan updated_at
-        
+
             // Foreign key untuk relasi dengan tabel barang atau products
             $table->foreign('barang_id')->references('id')->on('barangs')->onDelete('cascade');
         });
-        
     }
 
     /**

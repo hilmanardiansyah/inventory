@@ -31,16 +31,11 @@ class LoginController extends Controller
             } elseif (Auth::user()->hasRole('customer')) { // Tambahkan pengecekan untuk customer
                 return redirect()->intended('/customer/dashboard');
             }
-
-
-            // Default redirect
-            session()->flash('error', 'Email atau password salah.');
-            return back();
         }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ])->onlyInput('email');
+        session()->flash('error', 'Email atau password salah.');
+        return back()->withInput()->withErrors([
+            'email' => 'Email atau password yang Anda masukkan salah.',
+        ]);
     }
 
     public function logout(Request $request)

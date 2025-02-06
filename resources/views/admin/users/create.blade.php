@@ -26,12 +26,12 @@
                     <label for="address" class="form-label">Alamat</label>
                     <input type="address" name="address" id="address" class="form-control" value="{{ old('address') }}" required>
                 </div>
-                <div class="mb-3">
-                    <label for="role" class="form-label">Role:</label>
-                    <select name="role" id="role" required>
-                        <option value="admin">Admin</option>
-                        <option value="staff">Staff</option>
-                        <option value="customer">Customer</option>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select name="role" class="form-control">
+                        <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="staff" {{ old('role') == 'staff' ? 'selected' : '' }}>Staff</option>
+                        <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer</option>
                     </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Simpan</button>

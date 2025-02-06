@@ -14,8 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->nullable(); // Kolom untuk nomor telepon
-            $table->text('address')->nullable(); // Kolom untuk alamat
+            $table->dropColumn('role');
         });
     }
 
@@ -27,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'address']);
+            $table->string('role')->nullable();  // Mengembalikan kolom role jika rollback
         });
     }
 };
